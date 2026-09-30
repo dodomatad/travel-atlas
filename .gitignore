@@ -31,3 +31,8 @@ Thumbs.db
 # Vercel
 .vercel
 .env*.local
+
+# Test outputs
+test-results/
+playwright-report/
+

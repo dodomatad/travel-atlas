@@ -2,218 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ══════════════════════════════════════
-   THEME VARIABLES
-══════════════════════════════════════ */
-/* Light is the default theme */
-:root,
-html.light {
-  color-scheme: light;
-  --cr-bg:          #f1f5f9;
-  --cr-bg-alt:      #e8edf5;
-  --cr-card:        #ffffff;
-  --cr-elevated:    #f8fafc;
-  --cr-text:        #0f172a;
-  --cr-text-muted:  #475569;
-  --cr-text-dim:    #94a3b8;
-  --cr-border:      rgba(0, 0, 0, 0.1);
-  --cr-border-sub:  rgba(0, 0, 0, 0.06);
-  --cr-header-bg:   rgba(255, 255, 255, 0.97);
-  --cr-overlay:     rgba(255, 255, 255, 0.92);
-  --cr-map-bg:      #dde3ed;
-  --cr-input-bg:    rgba(0,0,0,0.04);
-  --cr-hover:       rgba(0,0,0,0.03);
-  --cr-hover2:      rgba(0,0,0,0.06);
+:root {
+  --background: #000010;
+  --foreground: #ffffff;
 }
-
-html.dark {
-  color-scheme: dark;
-  --cr-bg:          #0A0F1E;
-  --cr-bg-alt:      #070C1A;
-  --cr-card:        #111827;
-  --cr-elevated:    #1A2035;
-  --cr-text:        #f3f4f6;
-  --cr-text-muted:  #9ca3af;
-  --cr-text-dim:    #6b7280;
-  --cr-border:      rgba(255, 255, 255, 0.1);
-  --cr-border-sub:  rgba(255, 255, 255, 0.06);
-  --cr-header-bg:   rgba(10, 15, 30, 0.95);
-  --cr-overlay:     rgba(17, 24, 39, 0.88);
-  --cr-map-bg:      #0A0F1E;
-  --cr-input-bg:    rgba(255,255,255,0.05);
-  --cr-hover:       rgba(255,255,255,0.04);
-  --cr-hover2:      rgba(255,255,255,0.07);
-}
-
-/* ══════════════════════════════════════
-   BASE STYLES
-══════════════════════════════════════ */
-html { scroll-behavior: smooth; }
 
 body {
-  background-color: var(--cr-bg);
-  color: var(--cr-text);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  overflow-x: hidden;
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
-/* ══════════════════════════════════════
-   LIGHT MODE — GLOBAL COLOUR OVERRIDES
-   (covers all hardcoded Tailwind classes)
-══════════════════════════════════════ */
-
-/* ── Backgrounds ── */
-html.light .bg-\[\#0A0F1E\]    { background-color: var(--cr-bg)    !important; }
-html.light .bg-\[\#070C1A\]    { background-color: var(--cr-bg-alt) !important; }
-html.light .bg-\[\#111827\]    { background-color: var(--cr-card)  !important; }
-html.light .bg-\[\#1A2035\]    { background-color: var(--cr-elevated) !important; }
-html.light .bg-gray-900        { background-color: var(--cr-card)  !important; }
-html.light .bg-gray-800        { background-color: var(--cr-elevated) !important; }
-
-html.light .bg-white\/\[0\.02\]  { background-color: rgba(0,0,0,0.03) !important; }
-html.light .bg-white\/\[0\.03\]  { background-color: rgba(0,0,0,0.04) !important; }
-html.light .bg-white\/\[0\.04\]  { background-color: rgba(0,0,0,0.05) !important; }
-html.light .bg-white\/\[0\.06\]  { background-color: rgba(0,0,0,0.06) !important; }
-html.light .bg-white\/5          { background-color: rgba(0,0,0,0.05) !important; }
-html.light .bg-white\/10         { background-color: rgba(0,0,0,0.08) !important; }
-html.light .bg-white\/20         { background-color: rgba(0,0,0,0.12) !important; }
-
-html.light .hover\:bg-white\/\[0\.03\]:hover { background-color: rgba(0,0,0,0.04) !important; }
-html.light .hover\:bg-white\/\[0\.06\]:hover { background-color: rgba(0,0,0,0.06) !important; }
-html.light .hover\:bg-white\/5:hover         { background-color: rgba(0,0,0,0.05) !important; }
-
-/* ── Borders ── */
-html.light .border-white\/5   { border-color: rgba(0,0,0,0.07) !important; }
-html.light .border-white\/8   { border-color: rgba(0,0,0,0.09) !important; }
-html.light .border-white\/10  { border-color: rgba(0,0,0,0.10) !important; }
-html.light .border-white\/15  { border-color: rgba(0,0,0,0.12) !important; }
-html.light .border-white\/20  { border-color: rgba(0,0,0,0.14) !important; }
-html.light .divide-white\/5 > * + * { border-color: rgba(0,0,0,0.07) !important; }
-
-/* ── Text ── */
-html.light .text-white  { color: #0f172a   !important; }
-html.light .text-gray-100 { color: #1e293b !important; }
-html.light .text-gray-200 { color: #334155 !important; }
-html.light .text-gray-300 { color: #334155 !important; }
-html.light .text-gray-400 { color: #475569 !important; }
-html.light .text-gray-500 { color: #64748b !important; }
-html.light .text-gray-600 { color: #94a3b8 !important; }
-html.light .text-gray-700 { color: #94a3b8 !important; }
-
-/* ── Header ── */
-html.light header {
-  background-color: var(--cr-header-bg) !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
-/* ── Ad placeholder ── */
-html.light .ad-placeholder {
-  background-color: rgba(0,0,0,0.04) !important;
-  border-color: rgba(0,0,0,0.15) !important;
+@keyframes fade-in {
+  from { opacity: 0; transform: translateX(10px); }
+  to { opacity: 1; transform: translateX(0); }
 }
-html.light .ad-placeholder p { color: #94a3b8 !important; }
-
-/* ── AI Chat input & textarea ── */
-html.light textarea,
-html.light input[type="text"] {
-  background-color: var(--cr-elevated) !important;
-  color: var(--cr-text) !important;
-  border-color: rgba(0,0,0,0.15) !important;
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
 }
-html.light textarea::placeholder { color: #94a3b8 !important; }
-
-/* ── WorldMap loading state ── */
-html.light .leaflet-container + div,
-html.light [class*="bg-[#0A0F1E]"] { background-color: var(--cr-bg) !important; }
-
-/* ── Footer ── */
-html.light footer {
-  background-color: var(--cr-card) !important;
-  border-color: rgba(0,0,0,0.1) !important;
-}
-
-/* ── ConflictCard & ConflictAccordion ── */
-html.light .bg-\[\#111827\]          { background-color: var(--cr-card)     !important; }
-html.light .bg-\[\#1A2035\]          { background-color: var(--cr-elevated) !important; }
-html.light .hover\:border-white\/20:hover { border-color: rgba(0,0,0,0.18) !important; }
-
-/* ══════════════════════════════════════
-   BREAKING MARQUEE — LIGHT MODE
-══════════════════════════════════════ */
-html.light .cr-marquee-wrap {
-  background: var(--cr-bg-alt) !important;
-  border-color: rgba(0,0,0,0.08) !important;
-}
-html.light .cr-marquee-fade-l {
-  background: linear-gradient(to right, var(--cr-bg-alt), transparent) !important;
-}
-html.light .cr-marquee-fade-r {
-  background: linear-gradient(to left, var(--cr-bg-alt), transparent) !important;
-}
-html.light .cr-marquee-text {
-  color: #475569 !important;
-}
-
-/* ══════════════════════════════════════
-   SCROLLBAR
-══════════════════════════════════════ */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background: rgba(128,128,128,0.2);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover { background: rgba(128,128,128,0.35); }
-
-/* ══════════════════════════════════════
-   BREAKING NEWS MARQUEE ANIMATION
-══════════════════════════════════════ */
-@keyframes marqueeScroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marqueeScroll 180s linear infinite;
-  will-change: transform;
-}
-/* Pause on hover of the entire marquee wrapper */
-.cr-marquee-wrap:hover .marquee-track {
-  animation-play-state: paused;
-  cursor: default;
-}
-
-/* ══════════════════════════════════════
-   LEAFLET OVERRIDES
-══════════════════════════════════════ */
-.leaflet-container {
-  width: 100%;
-  height: 100%;
-  background: var(--cr-map-bg) !important;
-  transition: background 0.3s ease;
-}
-
-html.light .leaflet-control-attribution {
-  background: rgba(255,255,255,0.85) !important;
-  color: #64748b !important;
-  font-size: 10px !important;
-}
-html.light .leaflet-control-attribution a { color: #3b82f6 !important; }
-html.light .leaflet-control-zoom a {
-  background: #ffffff !important;
-  color: #374151 !important;
-  border-color: rgba(0,0,0,0.15) !important;
-}
-html.light .leaflet-control-zoom a:hover { background: #f1f5f9 !important; }
-html.light .leaflet-tooltip-dark {
-  background: #ffffff !important;
-  border-color: rgba(0,0,0,0.12) !important;
-  color: #0f172a !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
-}
-html.light .leaflet-tooltip-dark::before {
-  border-top-color: rgba(0,0,0,0.12) !important;
-}
+@keyframes slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } } 

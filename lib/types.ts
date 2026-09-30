@@ -1,68 +1,113 @@
-export type Severity = 'war' | 'escalating' | 'instability' | 'stable';
+export type ContentStatus = 'BASIC' | 'PARTIAL' | 'COMPLETE';
+export type ExplorationLevel = 'WORLD' | 'COUNTRY' | 'DIVISION' | 'CITY' | 'LOCAL';
+export type ExplorationMode = 'EXPLORE' | 'MY_WORLD' | 'MY_TRIPS';
 
-export interface ConflictEvent {
-  date: string; // YYYY-MM-DD
-  description: string;
-  tags: string[];
-  source?: string;
+export interface Coordinates {
+  lat: number;
+  lng: number;
 }
 
-export interface MarketImpact {
-  oil: 'high' | 'medium' | 'low' | 'none';
-  gold: 'high' | 'medium' | 'low' | 'none';
-}
-
-export interface Conflict {
+export interface Country {
   id: string;
   name: string;
-  countries: string[];
-  countryCodes: string[]; // ISO 3166-1 alpha-2
-  severity: Severity;
-  status: string;
-  summary: string;
-  startDate: string;
-  lastUpdated: string;
+  iso3: string;
+  officialName?: string;
+  flag?: string;
+  capital?: string;
+  continent?: string;
+  region?: string;
+  circuit?: string;
+  currency?: string;
+  languages: string[];
+  timezone?: string;
+  emergencyNumbers?: Record<string, string>;
+  coordinates: Coordinates;
+  description: string;
+  image?: string;
+  contentStatus: ContentStatus;
+  guide?: GuideInfo;
+}
+
+export interface AdministrativeDivision {
+  id: string;
+  countryId: string;
+  name: string;
+  code: string;
+  type: 'STATE' | 'PROVINCE' | 'REGION' | 'PREFECTURE' | 'DEPARTMENT' | 'TERRITORY' | 'OTHER';
+  coordinates: Coordinates;
+  description?: string;
+  population?: number;
+  image?: string;
+}
+
+export interface GuideInfo {
+  nextStops?: string[];
+  visitationTips?: string[];
+  mustSee?: string[];
+  localHistory?: string;
+  bestTime?: string;
+  safetyTips?: string[];
+}
+
+export interface City {
+  id: string;
+  countryId: string;
+  divisionId?: string;
+  name: string;
+  coordinates: Coordinates;
+  description: string;
+  image?: string;
+  bestTime?: string;
+  guide?: GuideInfo;
+}
+
+export interface Attraction {
+  id: string;
+  cityId: string;
+  countryId: string;
+  divisionId?: string;
+  name: string;
+  coordinates: Coordinates;
+  category: string;
+  description: string;
+  estimatedDuration?: string;
+  image?: string;
+  tags?: string[];
+  guide?: GuideInfo;
+}
+
+export interface VisitedPlace {
+  id: string;
+  type: 'COUNTRY' | 'DIVISION' | 'CITY' | 'DESTINATION';
+  placeId: string;
+  status: 'VISITED' | 'PLANNED' | 'FAVORITE';
+  firstVisitedAt?: string;
+}
+
+export interface TravelMemory {
+  id: string;
+  userId: string;
+  date: string;
+  photos: string[];
+  caption?: string;
+  notes?: string;
+  rating?: number;
   tags: string[];
-  events: ConflictEvent[];
-  marketImpact: MarketImpact;
-  pinned?: boolean;       // Always shown first, regardless of severity sort
-  globalImpact?: string;  // One-line summary of wider world impact
+  coordinates?: Coordinates;
+  countryId?: string;
+  divisionId?: string;
+  cityId?: string;
+  destinationId?: string;
 }
 
-export interface DailyReport {
-  date: string; // YYYY-MM-DD
-  headline: string;
-  summary: string;
-  regions: {
-    name: string;
-    content: string;
-  }[];
-  marketAnalysis: string;
-  generatedAt: string; // ISO timestamp
+export interface TransportConnection {
+  id: string;
+  fromCityId: string;
+  toCityId: string;
+  fromCountryId?: string;
+  toCountryId?: string;
+  transportType: string;
+  direct: boolean;
+  duration: string;
+  distance?: string;
 }
-
-export interface ChatMessage {
-  role: 'user' | 'assistant';
-  content: string;
-}
-
-export const SEVERITY_ORDER: Record<Severity, number> = {
-  war: 0,
-  escalating: 1,
-  instability: 2,
-  stable: 3,
-};
-
-export const SEVERITY_COLORS: Record<Severity, string> = {
-  war: '#EF4444',
-  escalating: '#F97316',
-  instability: '#EAB308',
-  stable: '#22C55E',
-};
-
-export const SEVERITY_LABELS: Record<Severity, string> = {
-  war: 'Active War',
-  escalating: 'Escalating',
-  instability: 'Instability',
-  stable: 'Stable',
-};

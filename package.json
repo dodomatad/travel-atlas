@@ -1,36 +1,43 @@
 {
-  "name": "warwatch-world",
+  "name": "travel-atlas",
   "version": "1.1.0",
+  "description": "Travel Atlas & AI Travel Intelligence Engine com Llama 3.2, 3D Globe e Planejador de Roteiros",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --webpack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint app components lib data",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "engines": {
+    "node": ">=24.0.0"
   },
   "dependencies": {
-    "@vercel/kv": "^3.0.0",
     "autoprefixer": "^10.4.19",
-    "clsx": "^2.1.1",
-    "date-fns": "^3.6.0",
-    "groq-sdk": "^0.7.0",
-    "leaflet": "^1.9.4",
+    "lucide-react": "^1.47.0",
     "next": "^16.2.1",
     "postcss": "^8.4.38",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
-    "react-leaflet": "^4.2.1",
-    "swr": "^2.2.5",
-    "tailwindcss": "^3.4.0"
+    "react-globe.gl": "^2.38.0",
+    "server-only": "^0.0.1",
+    "tailwindcss": "^3.4.0",
+    "three": "^0.186.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@types/leaflet": "^1.9.12",
+    "@playwright/test": "^1.63.0",
     "@types/node": "^20.14.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "eslint": "^9.0.0",
     "eslint-config-next": "^16.2.1",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.2"
   }
 }
