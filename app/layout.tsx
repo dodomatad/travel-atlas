@@ -2,11 +2,27 @@ import './globals.css';
 import { Inter } from 'next/font/google';
 import ErrorBoundary from '@/components/ErrorBoundary';
 
+import type { Metadata, Viewport } from 'next';
+
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata = {
-  title: 'Travel Globe',
-  description: 'Explore o mundo. Planeje sua próxima viagem.',
+export const viewport: Viewport = {
+  themeColor: '#000010',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
+export const metadata: Metadata = {
+  title: 'Travel Atlas',
+  description: 'Explore o mundo em 3D. Planeje sua próxima viagem com IA.',
+  manifest: '/manifest.webmanifest',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Travel Atlas',
+  },
   icons: {
     icon: '/logo.png',
     shortcut: '/logo.png',
