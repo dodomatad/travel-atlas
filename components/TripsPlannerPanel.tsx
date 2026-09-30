@@ -53,7 +53,7 @@ export default function TripsPlannerPanel({ userPlaces, onSelectCountry, onSelec
   }, [plannedCountries]);
 
   return (
-    <div className="absolute top-24 left-6 bottom-6 w-[350px] bg-[#050515]/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-5 flex flex-col text-white shadow-2xl z-20 animate-fade-in custom-scrollbar overflow-y-auto">
+    <div className="fixed inset-x-2 top-16 bottom-20 sm:inset-auto sm:top-24 sm:left-6 sm:bottom-6 sm:w-[360px] bg-[#050515]/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col text-white shadow-2xl z-30 animate-fade-in custom-scrollbar overflow-y-auto">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center shadow-lg">

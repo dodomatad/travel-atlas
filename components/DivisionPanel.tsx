@@ -22,7 +22,7 @@ export default function DivisionPanel({ division, onClose, onSelectCity }: Props
     <div className="h-full flex flex-col text-white bg-[#050515]/95 backdrop-blur-3xl border-l border-white/10 w-full md:w-[420px] shadow-2xl animate-fade-in relative z-30">
       
       {/* HEADER VISUAL */}
-      <div className="relative h-56 shrink-0 bg-[#000010]">
+      <div className="relative h-44 sm:h-56 shrink-0 bg-[#000010]">
         {division.image ? (
           <img src={division.image} alt={division.name} className="absolute inset-0 w-full h-full object-cover opacity-60" />
         ) : (
@@ -42,11 +42,11 @@ export default function DivisionPanel({ division, onClose, onSelectCity }: Props
           <X size={16} />
         </button>
         
-        <div className="absolute bottom-5 left-6 right-6 z-20">
-          <div className="flex items-center gap-2 mb-2">
+        <div className="absolute bottom-4 sm:bottom-5 left-4 sm:left-6 right-4 sm:right-6 z-20">
+          <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
             <span className="text-[10px] uppercase tracking-widest text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">{division.type}</span>
           </div>
-          <h2 className="text-3xl font-black tracking-tight drop-shadow-lg leading-tight">{division.name}</h2>
+          <h2 className="text-2xl sm:text-3xl font-black tracking-tight drop-shadow-lg leading-tight">{division.name}</h2>
           
           <div className="flex gap-2 mt-4">
             <button className={`flex-1 py-2 rounded text-[10px] font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 ${isVisited ? 'bg-green-600/20 text-green-400 border border-green-500/30' : 'bg-white/10 hover:bg-white/20 text-white border border-white/10'}`}>

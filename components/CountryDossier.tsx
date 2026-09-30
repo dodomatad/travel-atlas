@@ -64,7 +64,7 @@ export default function CountryDossier({ country, onClose, onSelectCity, onSelec
     <div className="h-full flex flex-col text-white bg-[#050515]/95 backdrop-blur-3xl border-l border-white/10 w-full md:w-[480px] shadow-2xl animate-fade-in relative z-30">
       
       {/* HEADER VISUAL */}
-      <div className="relative h-64 shrink-0 bg-[#000010]">
+      <div className="relative h-52 sm:h-64 shrink-0 bg-[#000010]">
         {country.image ? (
           <img src={country.image} alt={country.name} className="absolute inset-0 w-full h-full object-cover opacity-60" />
         ) : (
@@ -84,14 +84,14 @@ export default function CountryDossier({ country, onClose, onSelectCity, onSelec
           <X size={16} />
         </button>
         
-        <div className="absolute bottom-5 left-6 right-6 z-20">
-          <div className="flex items-center gap-2 mb-2">
+        <div className="absolute bottom-4 sm:bottom-5 left-4 sm:left-6 right-4 sm:right-6 z-20">
+          <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
             <span className="text-[10px] uppercase tracking-widest text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">{country.continent || 'Global'}</span>
             <span className="text-[10px] font-bold text-gray-300">{country.iso3}</span>
           </div>
-          <h2 className="text-4xl font-black tracking-tight drop-shadow-lg flex items-center gap-3">
+          <h2 className="text-2xl sm:text-4xl font-black tracking-tight drop-shadow-lg flex items-center gap-2 sm:gap-3">
             {country.flag && <span>{country.flag}</span>}
-            {country.name}
+            <span className="truncate">{country.name}</span>
           </h2>
           
           <div className="flex gap-2 mt-4">

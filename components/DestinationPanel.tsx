@@ -30,7 +30,7 @@ export default function DestinationPanel({ attraction, onClose, onSelectAttracti
     <div className="h-full flex flex-col text-white bg-[#050515]/95 backdrop-blur-3xl border-l border-white/10 w-full md:w-[400px] shadow-2xl animate-fade-in relative z-30">
       
       {/* HEADER VISUAL */}
-      <div className="relative h-56 shrink-0 bg-[#000010]">
+      <div className="relative h-44 sm:h-56 shrink-0 bg-[#000010]">
         {attraction.image ? (
           <img src={attraction.image} alt={attraction.name} className="absolute inset-0 w-full h-full object-cover opacity-60" />
         ) : (
@@ -50,19 +50,19 @@ export default function DestinationPanel({ attraction, onClose, onSelectAttracti
           <X size={16} />
         </button>
         
-        <div className="absolute bottom-5 left-6 right-6 z-20">
-          <div className="flex items-center gap-2 mb-2">
+        <div className="absolute bottom-4 sm:bottom-5 left-4 sm:left-6 right-4 sm:right-6 z-20">
+          <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
             <span className="text-[10px] uppercase tracking-widest text-green-400 bg-green-500/10 px-2 py-0.5 rounded border border-green-500/20">{attraction.category}</span>
           </div>
-          <h2 className="text-3xl font-black tracking-tight drop-shadow-lg leading-tight">{attraction.name}</h2>
-          <div className="flex items-center gap-1 text-[10px] text-gray-300 mt-2 uppercase tracking-widest">
+          <h2 className="text-2xl sm:text-3xl font-black tracking-tight drop-shadow-lg leading-tight">{attraction.name}</h2>
+          <div className="flex items-center gap-1 text-[10px] text-gray-300 mt-1 sm:mt-2 uppercase tracking-widest">
              <MapPin size={10} /> {city?.name}, {country?.name}
           </div>
         </div>
       </div>
 
       {/* CONTENT AREA */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar">
+      <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 sm:space-y-8 custom-scrollbar">
         
         {onAddPlace && (
           <div className="flex gap-2">

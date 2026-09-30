@@ -34,3 +34,15 @@ body {
   animation: fade-in 0.3s ease-out forwards;
 }
 @keyframes slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } } 
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.safe-area-bottom {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}

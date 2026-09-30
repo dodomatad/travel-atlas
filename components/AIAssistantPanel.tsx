@@ -113,36 +113,39 @@ export default function AIAssistantPanel({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-y-4 right-4 w-[420px] max-w-[calc(100vw-32px)] bg-[#050515]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden animate-fade-in text-white font-sans">
+    <div className="fixed inset-x-0 bottom-0 top-12 sm:inset-y-4 sm:right-4 sm:left-auto sm:w-[420px] sm:max-w-[calc(100vw-32px)] bg-[#050515]/98 sm:bg-[#050515]/95 backdrop-blur-3xl border-t sm:border border-white/10 rounded-t-3xl sm:rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden animate-fade-in text-white font-sans">
       
       {/* Header */}
-      <div className="p-4 border-b border-white/10 flex items-center justify-between bg-black/40">
-        <div className="flex items-center gap-3">
-          <img 
-            src="/logo.png" 
-            alt="Travel Globe Logo" 
-            className="w-9 h-9 rounded-xl object-cover shadow-lg border border-white/20 shadow-blue-500/20" 
-          />
-          <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-sm font-black tracking-wider uppercase">Travel Intelligence</h3>
-              <span className="flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Llama
-              </span>
+      <div className="p-3.5 sm:p-4 border-b border-white/10 flex flex-col bg-black/40">
+        <div className="sm:hidden w-10 h-1 bg-white/30 rounded-full mx-auto mb-2.5" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <img 
+              src="/logo.png" 
+              alt="Travel Globe Logo" 
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl object-cover shadow-lg border border-white/20 shadow-blue-500/20" 
+            />
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-xs sm:text-sm font-black tracking-wider uppercase">Travel Intelligence</h3>
+                <span className="flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Llama
+                </span>
+              </div>
+              <p className="text-[9px] sm:text-[10px] text-gray-400">
+                {contextCountry ? `Contexto ativo: ${contextCountry}` : 'Agente Autônomo de Viagens'}
+              </p>
             </div>
-            <p className="text-[10px] text-gray-400">
-              {contextCountry ? `Contexto ativo: ${contextCountry}` : 'Agente Autônomo de Viagens'}
-            </p>
           </div>
-        </div>
 
-        <button 
-          onClick={onClose}
-          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
-          title="Fechar assistente"
-        >
-          <X size={18} />
-        </button>
+          <button 
+            onClick={onClose}
+            className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+            title="Fechar assistente"
+          >
+            <X size={18} />
+          </button>
+        </div>
       </div>
 
       {/* Messages Scroll Area */}
@@ -251,7 +254,7 @@ export default function AIAssistantPanel({
           onKeyDown={e => e.key === 'Enter' && handleSendMessage()}
           placeholder={contextCountry ? `Pergunte sobre ${contextCountry}...` : "Ex: Monte um roteiro de 5 dias na Grécia..."}
           disabled={loading}
-          className="flex-1 bg-white/5 border border-white/10 focus:border-blue-500/60 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500 outline-none transition-colors"
+          className="flex-1 bg-white/5 border border-white/10 focus:border-blue-500/60 rounded-xl px-3.5 py-2.5 text-sm sm:text-xs text-white placeholder-gray-500 outline-none transition-colors"
         />
         <button
           onClick={() => handleSendMessage()}
