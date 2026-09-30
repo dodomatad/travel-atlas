@@ -7,7 +7,7 @@ let cachedProvider: IAIProvider | null = null;
 export function getAIProvider(): IAIProvider {
   if (cachedProvider) return cachedProvider;
 
-  if (process.env.USE_MOCK_AI === 'true') {
+  if (process.env.USE_MOCK_AI === 'true' || (process.env.VERCEL === '1' && !process.env.LLAMA_BASE_URL)) {
     cachedProvider = new MockAIProvider();
     return cachedProvider;
   }
