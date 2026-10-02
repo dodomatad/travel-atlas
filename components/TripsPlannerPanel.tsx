@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { Country, City, Attraction, VisitedPlace } from '@/lib/types';
 import { optimizeRouteNearestNeighbor, formatDistance, getDistance } from '@/lib/proximity';
 import { MOCK_COUNTRIES, MOCK_CITIES, MOCK_ATTRACTIONS } from '@/data/mock';
-import { Navigation, Calendar, MapPin, Map, Route, Sparkles } from 'lucide-react';
+import { Navigation, Calendar, MapPin, Map, Route, Sparkles, X } from 'lucide-react';
 
 interface Props {
   userPlaces: VisitedPlace[];
@@ -64,15 +64,19 @@ export default function TripsPlannerPanel({ userPlaces, onSelectCountry, onSelec
             <p className="text-[10px] text-gray-400 uppercase tracking-widest mt-0.5">Roteiro Contínuo (A partir do Brasil)</p>
           </div>
         </div>
-        <button onClick={onClose} className="bg-white/10 hover:bg-white/20 p-2 rounded-lg transition-colors border border-white/10 text-xs font-bold uppercase tracking-widest text-gray-300">
-          Voltar
+        <button 
+          onClick={onClose} 
+          className="min-h-[40px] px-3.5 py-2 bg-white/10 hover:bg-white/20 active:scale-95 rounded-xl transition-all border border-white/15 text-xs font-bold uppercase tracking-wider text-gray-200 flex items-center gap-1.5 touch-manipulation shadow-md"
+          aria-label="Fechar painel de viagens"
+        >
+          <X size={15} /> Fechar
         </button>
       </div>
 
       {onOpenAITripPlanner && (
         <button
           onClick={onOpenAITripPlanner}
-          className="w-full mb-4 py-2.5 px-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 text-white shadow-lg shadow-blue-500/20"
+          className="w-full mb-4 min-h-[44px] py-2.5 px-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-[0.98] rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 text-white shadow-lg shadow-blue-500/25 touch-manipulation"
         >
           <Sparkles size={14} /> Montar Roteiro com IA
         </button>

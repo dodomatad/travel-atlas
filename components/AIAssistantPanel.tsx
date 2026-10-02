@@ -140,8 +140,9 @@ export default function AIAssistantPanel({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+            className="min-h-[40px] min-w-[40px] rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-gray-300 hover:text-white transition-all flex items-center justify-center touch-manipulation border border-white/10 shadow-md"
             title="Fechar assistente"
+            aria-label="Fechar assistente"
           >
             <X size={18} />
           </button>
@@ -254,15 +255,16 @@ export default function AIAssistantPanel({
           onKeyDown={e => e.key === 'Enter' && handleSendMessage()}
           placeholder={contextCountry ? `Pergunte sobre ${contextCountry}...` : "Ex: Monte um roteiro de 5 dias na Grécia..."}
           disabled={loading}
-          className="flex-1 bg-white/5 border border-white/10 focus:border-blue-500/60 rounded-xl px-3.5 py-2.5 text-sm sm:text-xs text-white placeholder-gray-500 outline-none transition-colors"
+          className="flex-1 bg-white/5 border border-white/10 focus:border-blue-500/60 rounded-xl px-3.5 py-3 text-sm sm:text-xs text-white placeholder-gray-500 outline-none transition-colors touch-manipulation"
         />
         <button
           onClick={() => handleSendMessage()}
           disabled={!input.trim() || loading}
-          className="p-2.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-white transition-all shadow-lg shadow-blue-600/30"
+          className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2.5 bg-blue-600 hover:bg-blue-500 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-white transition-all shadow-lg shadow-blue-600/30 touch-manipulation"
           title="Enviar mensagem"
+          aria-label="Enviar mensagem"
         >
-          <Send size={14} />
+          <Send size={16} />
         </button>
       </div>
 

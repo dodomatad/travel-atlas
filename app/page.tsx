@@ -107,10 +107,19 @@ export default function TravelAtlasApp() {
     return userPlaces.filter(v => v.type === 'COUNTRY' && v.status === 'VISITED').length;
   }, [userPlaces]);
 
-  if (!mounted) return <div className="h-screen w-screen bg-[#000010]" />;
+  const hasActivePanel = useMemo(() => {
+    return Boolean(
+      (level === 'COUNTRY' && selectedCountry) ||
+      (level === 'DIVISION' && selectedDivision) ||
+      (level === 'CITY' && selectedCity) ||
+      (level === 'LOCAL' && selectedAttraction)
+    );
+  }, [level, selectedCountry, selectedDivision, selectedCity, selectedAttraction]);
+
+  if (!mounted) return <div className="h-[100dvh] w-screen bg-[#000010]" />;
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-[#000010] text-white font-sans selection:bg-blue-500/30">
+    <div className="relative w-screen h-[100dvh] overflow-hidden bg-[#000010] text-white font-sans selection:bg-blue-500/30">
       
       {/* Header Contexto / Breadcrumbs */}
       <header className="absolute top-0 left-0 right-0 z-40 p-3 sm:p-6 pointer-events-none flex justify-between items-start">
@@ -206,7 +215,7 @@ export default function TravelAtlasApp() {
 
       {/* Interactive Globe */}
       <div 
-        className="absolute inset-0 z-0" 
+        className="absolute inset-0 z-0 touch-none select-none" 
         style={{ 
           transform: `scale(${globeScale})`, 
           transformOrigin: 'center center', 
@@ -244,49 +253,51 @@ export default function TravelAtlasApp() {
       )}
 
       {/* Contextual Panels */}
-      <div className="fixed inset-0 sm:absolute sm:inset-auto sm:top-0 sm:right-0 sm:bottom-0 pointer-events-none flex justify-end z-30">
-        <div className="pointer-events-auto flex w-full sm:w-auto h-full">
-          <ErrorBoundary>
-            <Suspense fallback={<PanelSkeleton />}>
-              {level === 'COUNTRY' && selectedCountry && (
-                <CountryDossier 
-                  country={selectedCountry} 
-                  onClose={() => handleSelectCountry(null)} 
-                  onSelectCity={handleSelectCity}
-                  onSelectDivision={handleSelectDivision}
-                  onFlyToCoordinates={setFocusCoordinate}
-                  onAddPlace={handleAddPlace}
-                  onOpenAIWithCountry={(name) => setIsAIAssistantOpen(true)}
-                />
-              )}
-              {level === 'DIVISION' && selectedDivision && (
-                <DivisionPanel 
-                  division={selectedDivision} 
-                  onClose={() => handleSelectCountry(selectedCountry)} 
-                  onSelectCity={handleSelectCity} 
-                />
-              )}
-              {level === 'CITY' && selectedCity && (
-                <CityPanel 
-                  city={selectedCity} 
-                  attractions={MOCK_ATTRACTIONS.filter(a => a.cityId === selectedCity.id)} 
-                  onClose={() => selectedDivision ? handleSelectDivision(selectedDivision) : handleSelectCountry(selectedCountry)} 
-                  onSelectAttraction={handleSelectAttraction} 
-                  onAddPlace={handleAddPlace}
-                />
-              )}
-              {level === 'LOCAL' && selectedAttraction && (
-                <DestinationPanel 
-                  attraction={selectedAttraction}
-                  onClose={() => handleSelectCity(selectedCity)}
-                  onSelectAttraction={handleSelectAttraction}
-                  onAddPlace={handleAddPlace}
-                />
-              )}
-            </Suspense>
-          </ErrorBoundary>
+      {hasActivePanel && (
+        <div className="fixed inset-0 sm:absolute sm:inset-auto sm:top-0 sm:right-0 sm:bottom-0 pointer-events-none flex justify-end z-30">
+          <div className="pointer-events-auto flex w-full sm:w-auto h-full">
+            <ErrorBoundary>
+              <Suspense fallback={<PanelSkeleton />}>
+                {level === 'COUNTRY' && selectedCountry && (
+                  <CountryDossier 
+                    country={selectedCountry} 
+                    onClose={() => handleSelectCountry(null)} 
+                    onSelectCity={handleSelectCity}
+                    onSelectDivision={handleSelectDivision}
+                    onFlyToCoordinates={setFocusCoordinate}
+                    onAddPlace={handleAddPlace}
+                    onOpenAIWithCountry={(name) => setIsAIAssistantOpen(true)}
+                  />
+                )}
+                {level === 'DIVISION' && selectedDivision && (
+                  <DivisionPanel 
+                    division={selectedDivision} 
+                    onClose={() => handleSelectCountry(selectedCountry)} 
+                    onSelectCity={handleSelectCity} 
+                  />
+                )}
+                {level === 'CITY' && selectedCity && (
+                  <CityPanel 
+                    city={selectedCity} 
+                    attractions={MOCK_ATTRACTIONS.filter(a => a.cityId === selectedCity.id)} 
+                    onClose={() => selectedDivision ? handleSelectDivision(selectedDivision) : handleSelectCountry(selectedCountry)} 
+                    onSelectAttraction={handleSelectAttraction} 
+                    onAddPlace={handleAddPlace}
+                  />
+                )}
+                {level === 'LOCAL' && selectedAttraction && (
+                  <DestinationPanel 
+                    attraction={selectedAttraction}
+                    onClose={() => handleSelectCity(selectedCity)}
+                    onSelectAttraction={handleSelectAttraction}
+                    onAddPlace={handleAddPlace}
+                  />
+                )}
+              </Suspense>
+            </ErrorBoundary>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Globe Scale Control (Desktop only) */}
       <div className="hidden md:flex fixed bottom-6 right-6 z-30 bg-[#0B0F17]/80 backdrop-blur-md border border-white/10 rounded-2xl p-2.5 items-center gap-3 shadow-xl">
@@ -315,27 +326,37 @@ export default function TravelAtlasApp() {
       </div>
 
       {/* Mobile Bottom Navigation Bar */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-[#050515]/95 backdrop-blur-2xl border-t border-white/10 px-3 py-2 flex items-center justify-around shadow-2xl safe-area-bottom">
+      <nav className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-[#050515]/95 backdrop-blur-2xl border-t border-white/10 px-2 py-1.5 flex items-center justify-around shadow-2xl safe-area-bottom select-none">
         <button 
-          onClick={() => { setMode('EXPLORE'); setIsAIAssistantOpen(false); }}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-all ${
-            mode === 'EXPLORE' && !isAIAssistantOpen ? 'text-blue-400 bg-blue-500/10' : 'text-gray-400 hover:text-white'
+          onClick={() => { 
+            setMode('EXPLORE'); 
+            handleSelectCountry(null); 
+            setIsAIAssistantOpen(false); 
+          }}
+          className={`min-h-[48px] min-w-[64px] flex flex-col items-center justify-center gap-1 px-3 py-1 rounded-xl transition-all active:scale-95 touch-manipulation ${
+            mode === 'EXPLORE' && !hasActivePanel && !isAIAssistantOpen ? 'text-blue-400 bg-blue-500/15' : 'text-gray-400 hover:text-white'
           }`}
+          aria-label="Explorar o Globo"
         >
           <Globe size={18} />
           <span className="text-[10px] font-bold uppercase tracking-wider">Explorar</span>
         </button>
 
         <button 
-          onClick={() => { setMode('MY_WORLD'); setIsAIAssistantOpen(false); }}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-all relative ${
-            mode === 'MY_WORLD' && !isAIAssistantOpen ? 'text-emerald-400 bg-emerald-500/10' : 'text-gray-400 hover:text-white'
+          onClick={() => { 
+            setMode('MY_WORLD'); 
+            handleSelectCountry(null); 
+            setIsAIAssistantOpen(false); 
+          }}
+          className={`min-h-[48px] min-w-[64px] flex flex-col items-center justify-center gap-1 px-3 py-1 rounded-xl transition-all active:scale-95 touch-manipulation relative ${
+            mode === 'MY_WORLD' && !isAIAssistantOpen ? 'text-emerald-400 bg-emerald-500/15' : 'text-gray-400 hover:text-white'
           }`}
+          aria-label="Meu Mundo"
         >
           <div className="relative">
             <Trophy size={18} />
             {visitedCountriesCount > 0 && (
-              <span className="absolute -top-1 -right-2 bg-emerald-500 text-black text-[8px] font-black px-1 rounded-full">
+              <span className="absolute -top-1 -right-2.5 bg-emerald-500 text-black text-[8px] font-black px-1 rounded-full">
                 {visitedCountriesCount}
               </span>
             )}
@@ -344,10 +365,15 @@ export default function TravelAtlasApp() {
         </button>
 
         <button 
-          onClick={() => { setMode('MY_TRIPS'); setIsAIAssistantOpen(false); }}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-all ${
-            mode === 'MY_TRIPS' && !isAIAssistantOpen ? 'text-yellow-400 bg-yellow-500/10' : 'text-gray-400 hover:text-white'
+          onClick={() => { 
+            setMode('MY_TRIPS'); 
+            handleSelectCountry(null); 
+            setIsAIAssistantOpen(false); 
+          }}
+          className={`min-h-[48px] min-w-[64px] flex flex-col items-center justify-center gap-1 px-3 py-1 rounded-xl transition-all active:scale-95 touch-manipulation ${
+            mode === 'MY_TRIPS' && !isAIAssistantOpen ? 'text-yellow-400 bg-yellow-500/15' : 'text-gray-400 hover:text-white'
           }`}
+          aria-label="Minhas Viagens"
         >
           <Plane size={18} />
           <span className="text-[10px] font-bold uppercase tracking-wider">Viagens</span>
@@ -355,9 +381,10 @@ export default function TravelAtlasApp() {
 
         <button 
           onClick={() => setIsAIAssistantOpen(prev => !prev)}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-all ${
+          className={`min-h-[48px] min-w-[64px] flex flex-col items-center justify-center gap-1 px-3 py-1 rounded-xl transition-all active:scale-95 touch-manipulation ${
             isAIAssistantOpen ? 'text-indigo-400 bg-indigo-500/20 shadow-inner' : 'text-gray-400 hover:text-white'
           }`}
+          aria-label="Assistente IA Llama"
         >
           <Sparkles size={18} className={isAIAssistantOpen ? 'animate-pulse text-indigo-400' : ''} />
           <span className="text-[10px] font-bold uppercase tracking-wider">IA Llama</span>

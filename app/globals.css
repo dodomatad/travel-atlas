@@ -46,3 +46,22 @@ body {
 .safe-area-bottom {
   padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
 }
+
+/* Mobile touch and WebGL canvas ergonomics */
+canvas {
+  touch-action: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.touch-pan-y {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}

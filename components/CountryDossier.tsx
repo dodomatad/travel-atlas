@@ -74,14 +74,21 @@ export default function CountryDossier({ country, onClose, onSelectCity, onSelec
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-[#050515] via-[#050515]/50 to-transparent z-10" />
         
-        <div className="absolute top-4 left-4 z-20">
-          <button onClick={onClose} className="bg-black/40 hover:bg-black/80 text-white px-3 py-1.5 rounded-full backdrop-blur-md transition-all flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest">
-            <ArrowLeft size={14} /> Voltar ao Mapa
+        <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 z-20">
+          <button 
+            onClick={onClose} 
+            className="min-h-[42px] bg-black/60 hover:bg-black/80 active:scale-95 text-white px-3.5 py-2 rounded-full backdrop-blur-md transition-all flex items-center gap-2 text-xs font-bold uppercase tracking-wider touch-manipulation shadow-lg border border-white/15"
+          >
+            <ArrowLeft size={15} /> Voltar ao Mapa
           </button>
         </div>
 
-        <button onClick={onClose} className="absolute top-4 right-4 z-20 bg-black/40 hover:bg-black/80 text-white p-2 rounded-full backdrop-blur-md transition-all">
-          <X size={16} />
+        <button 
+          onClick={onClose} 
+          className="min-h-[42px] min-w-[42px] absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-20 bg-black/60 hover:bg-black/80 active:scale-95 text-white rounded-full backdrop-blur-md transition-all flex items-center justify-center touch-manipulation shadow-lg border border-white/15"
+          aria-label="Fechar painel"
+        >
+          <X size={18} />
         </button>
         
         <div className="absolute bottom-4 sm:bottom-5 left-4 sm:left-6 right-4 sm:right-6 z-20">
@@ -94,17 +101,17 @@ export default function CountryDossier({ country, onClose, onSelectCity, onSelec
             <span className="truncate">{country.name}</span>
           </h2>
           
-          <div className="flex gap-2 mt-4">
-            <button className={`flex-1 py-2 rounded text-[10px] font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 ${isVisited ? 'bg-green-600/20 text-green-400 border border-green-500/30' : 'bg-white/10 hover:bg-white/20 text-white border border-white/10'}`}>
-              {isVisited ? <><CheckCircle2 size={14} /> Visitado</> : 'Marcar Visita'}
+          <div className="flex gap-2 mt-3.5 sm:mt-4">
+            <button className={`flex-1 min-h-[44px] py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all active:scale-98 touch-manipulation flex items-center justify-center gap-2 ${isVisited ? 'bg-green-600/20 text-green-400 border border-green-500/30' : 'bg-white/10 hover:bg-white/20 text-white border border-white/10'}`}>
+              {isVisited ? <><CheckCircle2 size={16} /> Visitado</> : 'Marcar Visita'}
             </button>
             {onOpenAIWithCountry && (
               <button 
                 onClick={() => onOpenAIWithCountry(country.name)}
-                className="py-2 px-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 rounded text-[10px] font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-1.5 text-white shadow-lg shadow-blue-500/20"
+                className="min-h-[44px] py-2.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-98 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 text-white shadow-lg shadow-blue-500/25 touch-manipulation"
                 title="Consultar inteligência do país com o Llama"
               >
-                <Sparkles size={13} /> Assistente IA
+                <Sparkles size={14} /> Assistente IA
               </button>
             )}
           </div>
